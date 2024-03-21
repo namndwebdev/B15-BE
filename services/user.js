@@ -1,10 +1,10 @@
-var UserModel = require('../models/User')
+const UserModel = require('../models/User')
 
-var getAllUser = ()=>{
+const getAllUser = ()=>{
     return UserModel.find({})
 }
 
-var createUser = ()=>{
+const createUser = ()=>{
     return UserModel.create({
         name: 'nam',
         email: 'namndwebdev2@gmail.com',

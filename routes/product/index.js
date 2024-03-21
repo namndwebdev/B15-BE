@@ -1,8 +1,28 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express')
+const router = express.Router()
+const {addProduct} = require('../../services/product')
+// localhost:4000/api/products
 
 router.get('/', (req, res, next)=>{
-    res.json('GET Product')
+    res.json('GET many Product')
+})
+router.get('/:id', (req, res, next)=>{
+    res.json('GET 1 Product')
+})
+router.post('/', async (req, res, next)=>{
+    try {
+        let result = await addProduct(req.body)
+        return res.json('ADD 1 Product Thanh cong')
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json('Khong the them SP')
+    }
+})
+router.put('/:id', (req, res, next)=>{
+    res.json('UPDATE 1 Product')
+})
+router.delete('/:id', (req, res, next)=>{
+    res.json('Delete 1 Product')
 })
 
 module.exports = router
