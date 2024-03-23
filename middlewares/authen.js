@@ -1,4 +1,4 @@
-var checkAuth = (req, res, next)=>{
+const checkAuth = (req, res, next)=>{
     console.log('di qua middleware checkAuth');
 
     next()

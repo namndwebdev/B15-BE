@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/B15_BE');
-    console.log("da thanh cong")
+    await mongoose.connect(process.env.MONGO_URL);
+    console.log('Connect MONGO !');
 }
 
 main().catch(err => console.log(err));
