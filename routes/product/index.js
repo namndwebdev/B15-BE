@@ -27,7 +27,7 @@ router.get('/:id', async (req, res, next)=>{
 router.post('/', async (req, res, next)=>{
     try {
         let result = await addProduct(req.body)
-        return res.json('ADD 1 Product Thanh cong')
+        return res.json(result)
     } catch (error) {
         next(error)
     }
