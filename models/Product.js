@@ -9,7 +9,8 @@ let productSchema = new mongoose.Schema({
     description: String,
     price: {
         type: Number,
-        default: 0
+        default: 0,
+        min: 0
     },
     salePrice: {
         type: Number,
@@ -20,6 +21,7 @@ let productSchema = new mongoose.Schema({
         default: 1
     }
 }, {
+    timestamps: true,
     collection: 'products'
 })
 
