@@ -17,7 +17,14 @@ const createUser = async (newUser)=>{
     })
 }
 
+const findUserByEmail = async (email)=>{
+    return UserModel.findOne({
+        email: email
+    })
+}
+
 module.exports = {
     getAllUser,
-    createUser
+    createUser,
+    findUserByEmail
 }
