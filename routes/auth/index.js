@@ -5,6 +5,7 @@ const {validateEmail} = require('../../helper/validateData')
 const {createUser, findUserByEmail} = require('../../services/user')
 const bcrypt = require('bcrypt')
 const { genJWT, verigyJWT } = require('../../helper/jwt')
+const { createErrorMiddleware } = require('../../middlewares/error')
 
 router.post('/signup', async (req, res, next)=>{
     try {
@@ -53,12 +54,7 @@ router.post('/login', async (req, res, next)=>{
     }
 })
 
-router.use((error, req, res, next)=>{
-    let routerName = 'Auth'
-    if(error.status === 400){
-        return res.status(400).json(`${routerName} API: ${error.message}`)
-    }
-    return res.status(500).json(`${routerName} API : Co van de xay ra voi server ${error.message}`)
-})
+let handleError = createErrorMiddleware('Auth')
+router.use(handleError)
 
 module.exports = router

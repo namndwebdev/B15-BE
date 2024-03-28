@@ -7,8 +7,9 @@ const {
     updateProductById, 
     deleteProductById
 } = require('../../services/product')
-
-router.get('/', async (req, res, next)=>{
+const {checkAuth} = require('../../middlewares/authen')
+const { createErrorMiddleware } = require('../../middlewares/error')
+router.get('/', checkAuth, async (req, res, next)=>{
     try {
         let result = await getProduct(req.query)
         return res.json(result)
@@ -49,12 +50,7 @@ router.delete('/:id', async (req, res, next)=>{
     }
 })
 
-router.use((error, req, res, next)=>{
-    let routerName = 'Product'
-    if(error.status === 400){
-        return res.status(400).json(`${routerName} API: ${error.message}`)
-    }
-    return res.status(500).json(`${routerName} API : Co van de xay ra voi server`)
-})
+let handleError = createErrorMiddleware('Product')
+router.use(handleError)
 
 module.exports = router

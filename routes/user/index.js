@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const userService = require('../../services/user')
+const { createErrorMiddleware } = require('../../middlewares/error')
 
 router.get('/', async (req, res, next)=>{
     try {
@@ -21,5 +22,8 @@ router.get('/them', async (req, res, next)=>{
         res.json('loi roi')
     }
 })
+
+let handleError = createErrorMiddleware('User')
+router.use(handleError)
 
 module.exports = router
