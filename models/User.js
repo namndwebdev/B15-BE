@@ -1,5 +1,5 @@
 const mongoose = require('../configs/mongo')
-let emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/img
+const {validateEmail} = require('../helper/validateData')
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
         unique: true,
         validate: {
             validator: (value)=>{
-                return emailRegex.test(value)
+                return validateEmail(value)
             },
             message: 'Dinh dang phai la email va phai la duy nhat'
         }
