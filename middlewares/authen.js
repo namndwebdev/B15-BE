@@ -30,6 +30,24 @@ const checkAuth = async (req, res, next)=>{
     }
 }
 
+const checkAdmin = async (req, res, next)=>{
+    if(req.user.role === 'admin'){
+        next()
+    }else{
+        next(createError(403, 'Ban phai co quyen Admin'))
+    }
+}
+
+const checkManager = async (req, res, next)=>{
+    if(req.user.role === 'admin' || req.user.role === 'manager'){
+        next()
+    }else{
+        next(createError(403, 'Ban phai co quyen tu Manager tro len'))
+    }
+}
+
 module.exports = {
-    checkAuth
+    checkAuth,
+    checkManager,
+    checkAdmin
 }

@@ -13,7 +13,7 @@ const createUser = async (newUser)=>{
     return UserModel.create({
         name: name,
         email: email,
-        password: hashedPassword
+        password: hashedPassword,
     })
 }
 
