@@ -6,7 +6,7 @@ const {createUser, findUserByEmail} = require('../../services/user')
 const bcrypt = require('bcrypt')
 const { genJWT, verigyJWT } = require('../../helper/jwt')
 const { createErrorMiddleware } = require('../../middlewares/error')
-
+const { saveToken } = require('../../services/token')
 router.post('/signup', async (req, res, next)=>{
     try {
         let result = await createUser(req.body)
@@ -49,6 +49,17 @@ router.post('/login', async (req, res, next)=>{
 
         // let result = await 
         return res.json(result)
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.get('/logout', async (req, res, next)=>{
+    try {
+        let token = req.headers.authorization?.split(' ')[1]
+        await saveToken(token)
+
+        return res.json('Dang xuat thanh cong')
     } catch (error) {
         next(error)
     }
