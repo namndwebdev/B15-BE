@@ -13,7 +13,6 @@ const checkAuth = async (req, res, next)=>{
         
         next()
     }catch(err){
-        console.log(err);
         switch (err.message) {
             case 'invalid signature':
             case 'invalid token':
