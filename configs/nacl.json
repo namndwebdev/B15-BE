@@ -1,0 +1,32 @@
+[
+    {
+      "group": "admin",
+      "permissions": [
+        {
+          "resource": "*",
+          "methods": "*",
+          "action": "allow"
+        }
+      ]
+    },
+    {
+      "group": "manager",
+      "permissions": [
+        {
+          "resource": "products",
+          "methods": ["DELETE"],
+          "action": "deny"
+        }
+      ]
+    },
+    {
+      "group": "user",
+      "permissions": [
+        {
+          "resource": "products",
+          "methods": ["POST", "PUT", "DELETE"],
+          "action": "deny"
+        }
+      ]
+    }
+  ]

@@ -7,9 +7,9 @@ const {
     updateProductById, 
     deleteProductById
 } = require('../../services/product')
-const {checkAuth} = require('../../middlewares/authen')
+const {checkAuth, checkAdmin} = require('../../middlewares/authen')
 const { createErrorMiddleware } = require('../../middlewares/error')
-router.get('/', checkAuth, async (req, res, next)=>{
+router.get('/', async (req, res, next)=>{
     try {
         let result = await getProduct(req.query)
         return res.json(result)
