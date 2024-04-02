@@ -3,9 +3,10 @@ acl.config({
     baseUrl: 'api',
     filename: 'nacl.json',
     path: 'configs',
-    defaultRole: 'anonymous',
+    defaultRole: 'guest',
     decodedObjectName: 'user',
     roleSearchPath: 'user.role'
 });
+
 
 module.exports = acl
