@@ -4,16 +4,16 @@ const createError = require('http-errors')
 const {
     updateProductById, 
     deleteProductById
-} = require('../../services/product')
+} = require('../../../services/product')
 
 const {
     createOrder,
     getOrders,
     getOrderById,
     updateOrderById
-} = require('../../services/order')
+} = require('../../../services/order')
 
-const { createErrorMiddleware } = require('../../middlewares/error')
+const { createErrorMiddleware } = require('../../../middlewares/error')
 router.get('/', async (req, res, next)=>{
     try {
         let result = await getOrders(req.query)
@@ -42,9 +42,6 @@ router.post('/', async (req, res, next)=>{
 
 router.put('/:id', async (req, res, next)=>{
     try {
-        if(req.body.status != 'cancel'){
-            delete req.body.status
-        }
         let result = await updateOrderById(req.params.id, req.body)
         return res.json(result)
     } catch (error) {
