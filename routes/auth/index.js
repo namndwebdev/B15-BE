@@ -12,7 +12,7 @@ router.post('/signup', async (req, res, next)=>{
         let result = await createUser(req.body)
         return res.json(result)
     } catch (error) {
-        next(error)
+        next(createError(500, error.message))
     }
 })
 
@@ -50,7 +50,7 @@ router.post('/login', async (req, res, next)=>{
         // let result = await 
         return res.json(result)
     } catch (error) {
-        next(error)
+        next(createError(500, error.message))
     }
 })
 
@@ -61,7 +61,7 @@ router.get('/logout', async (req, res, next)=>{
 
         return res.json('Dang xuat thanh cong')
     } catch (error) {
-        next(error)
+        next(createError(500, error.message))
     }
 })
 

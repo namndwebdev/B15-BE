@@ -18,13 +18,13 @@ let productSchema = new mongoose.Schema({
     },
     stock: {
         type: Number,
-        default: 1
+        default: 1,
+        min: 1
     }
 }, {
     timestamps: true,
     collection: 'products'
 })
-
 let ProductModel = mongoose.model('Product', productSchema)
 
 module.exports = ProductModel

@@ -47,8 +47,33 @@ const updateProductById = (id, newData)=>{
         stock
     })
     return ProductModel.findOneAndUpdate({_id: id}, validData, {
-        new: true
+        new: true,
+        runValidators: true
     })
+}
+
+const updateStockOfListProduct = async (listProducts)=>{
+    let listId = listProducts.map(item=>{
+        return item.id
+    })
+    let data = await ProductModel.find({_id: {$in: listId}})
+    let listQuery = data.map((item)=>{
+        let quantity = listProducts.find(e=> e.id == item.id)?.quantity
+        quantity = quantity < 1 ? 1 : quantity
+
+        item.stock -= quantity
+        if(item.stock < 0){
+            throw item._id + " het hang"
+        }
+        return {
+                updateOne: {
+                    filter: { _id: item.id },
+                    update: { stock: item.stock } ,
+                }
+            }
+    })
+
+    return ProductModel.bulkWrite(listQuery)
 }
 
 const deleteProductById = (id)=>{
@@ -65,5 +90,6 @@ module.exports = {
     getProductById,
     addProduct,
     updateProductById,
-    deleteProductById
+    deleteProductById,
+    updateStockOfListProduct
 }

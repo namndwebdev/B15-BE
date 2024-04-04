@@ -13,9 +13,14 @@
       "group": "manager",
       "permissions": [
         {
-          "resource": "products",
-          "methods": ["DELETE"],
-          "action": "deny"
+          "resource": "products/*",
+          "methods": ["GET", "PUT", "POST"],
+          "action": "allow"
+        },
+        {
+          "resource": "orders/*",
+          "methods": ["GET", "PUT", "POST"],
+          "action": "allow"
         }
       ]
     },
@@ -23,7 +28,7 @@
       "group": "user",
       "permissions": [
         {
-          "resource": "products",
+          "resource": "products/*",
           "methods": ["POST", "PUT", "DELETE"],
           "action": "deny"
         }

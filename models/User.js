@@ -4,8 +4,8 @@ const {validateEmail} = require('../helper/validateData')
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        min: 3,
-        max: 50,
+        minLength: 3,
+        maxLength: 50,
         require: true,
         default: ''
     },
