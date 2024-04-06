@@ -20,8 +20,13 @@ const removeEmptyKey = (obj)=>{
     return obj
 }
 
+const isEmptyObject = (obj)=>{
+    return Object.keys(obj).length == 0
+}
+
 module.exports = {
     validateObjectId,
     removeEmptyKey,
-    validateEmail
+    validateEmail,
+    isEmptyObject
 }

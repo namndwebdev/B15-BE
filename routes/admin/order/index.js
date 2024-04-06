@@ -2,18 +2,18 @@ const express = require('express')
 const router = express.Router()
 const createError = require('http-errors')
 const {
+    updateProductById, 
     deleteProductById
-} = require('../../services/product')
+} = require('../../../services/product')
 
 const {
     createOrder,
     getOrders,
     getOrderById,
-    updateOrderById,
-    cancelOrderById
-} = require('../../services/order')
+    updateOrderById
+} = require('../../../services/order')
 
-const { createErrorMiddleware } = require('../../middlewares/error')
+const { createErrorMiddleware } = require('../../../middlewares/error')
 router.get('/', async (req, res, next)=>{
     try {
         let result = await getOrders(req.query)
@@ -39,22 +39,10 @@ router.post('/', async (req, res, next)=>{
     }
 })
 
+
 router.put('/:id', async (req, res, next)=>{
     try {
-        let result = null;
-        if(req.body.status){
-            // muon cap nhat status
-            if(req.body.status != 'cancel'){
-                throw createError(400, 'chi duoc huy don khi don co trang thai new')
-            }else{
-                // nguoi dung muon cancel
-                result = await cancelOrderById(req.params.id, req.body)
-            }
-        }else{
-            // muon cap nhat thong tin
-            result = await updateOrderById(req.params.id, req.body)
-        }
-        
+        let result = await updateOrderById(req.params.id, req.body)
         return res.json(result)
     } catch (error) {
         next(createError(500, error))

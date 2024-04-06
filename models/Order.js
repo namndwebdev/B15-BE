@@ -19,6 +19,10 @@ let orderSchema = new mongoose.Schema({
         max: 1
     },
     customer: {
+        idCustomer: {
+            type: String,
+            ref: 'User'
+        },
         name: String,
         phone: {
             type: String,

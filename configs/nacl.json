@@ -21,6 +21,11 @@
           "resource": "orders/*",
           "methods": ["GET", "PUT", "POST"],
           "action": "allow"
+        },
+        {
+          "resource": "admin/orders/*",
+          "methods": ["GET", "PUT", "POST"],
+          "action": "allow"
         }
       ]
     },
@@ -30,6 +35,16 @@
         {
           "resource": "products/*",
           "methods": ["POST", "PUT", "DELETE"],
+          "action": "deny"
+        },
+        {
+          "resource": "orders/*",
+          "methods": ["GET", "PUT", "POST"],
+          "action": "allow"
+        },
+        {
+          "resource": "admin/orders/*",
+          "methods": "*",
           "action": "deny"
         }
       ]
