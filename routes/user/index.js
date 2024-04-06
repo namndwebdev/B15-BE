@@ -8,7 +8,6 @@ router.get('/', async (req, res, next)=>{
         let data = await userService.getAllUser()
         res.json(data)
     } catch (error) {
-        console.log(error);
         res.json('khong the lay user')
     }
 })
@@ -18,7 +17,6 @@ router.get('/them', async (req, res, next)=>{
         let ketqua = await userService.createUser()
         res.json('them ok')
     } catch (error) {
-        console.log(error);
         res.json('loi roi')
     }
 })
