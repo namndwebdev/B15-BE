@@ -1,5 +1,5 @@
-const mongoose = require('../configs/mongo')
-const {validateEmail} = require('../helper/validateData')
+const mongoose = require('@configs/mongo')
+const {validateEmail} = require('@helper/validateData')
 
 const userSchema = new mongoose.Schema({
     name: {

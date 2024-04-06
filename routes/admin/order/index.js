@@ -4,16 +4,16 @@ const createError = require('http-errors')
 const {
     updateProductById, 
     deleteProductById
-} = require('../../../services/product')
+} = require('@services/product')
 
 const {
     createOrder,
     getOrders,
     getOrderById,
     updateOrderById
-} = require('../../../services/order')
+} = require('@services/order')
 
-const { createErrorMiddleware } = require('../../../middlewares/error')
+const { createErrorMiddleware } = require('@middlewares/error')
 router.get('/', async (req, res, next)=>{
     try {
         let result = await getOrders(req.query)

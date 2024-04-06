@@ -7,8 +7,8 @@ const authRouter = require('./auth')
 
 const orderRouterAdmin = require('./admin/order')
 
-const {checkAuth} = require('../middlewares/authen')
-const acl = require('../configs/nacl')
+const {checkAuth} = require('@middlewares/authen')
+const acl = require('@configs/nacl')
 
 
 router.use('/auth', authRouter)

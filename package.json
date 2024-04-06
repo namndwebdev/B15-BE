@@ -15,9 +15,20 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
     "mongoose": "^8.2.2",
     "morgan": "~1.9.1",
     "winston": "^3.13.0",
     "winston-daily-rotate-file": "^5.0.0"
+  },
+  "_moduleAliases": {
+    "@root"      : ".",
+    "@configs"      : "./configs",
+    "@helper" : "./helper",
+    "@middlewares" : "./middlewares",
+    "@models" : "./models",
+    "@routes" : "./routes",
+    "@services" : "./services",
+    "@errors" : "./configs/errors"
   }
 }

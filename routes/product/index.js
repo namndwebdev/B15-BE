@@ -7,8 +7,8 @@ const {
     addProduct, 
     updateProductById, 
     deleteProductById
-} = require('../../services/product')
-const { createErrorMiddleware } = require('../../middlewares/error')
+} = require('@services/product')
+const { createErrorMiddleware } = require('@middlewares/error')
 router.get('/', async (req, res, next)=>{
     try {
         let result = await getProduct(req.query)

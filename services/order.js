@@ -1,7 +1,8 @@
-const OrderModel = require('../models/Order')
+const OrderModel = require('@models/Order')
 const {updateStockOfListProduct} = require('./product')
-const {validateObjectId, removeEmptyKey, isEmptyObject} = require('../helper/validateData')
+const {validateObjectId, removeEmptyKey, isEmptyObject} = require('@helper/validateData')
 var createError = require('http-errors');
+const { INVALID_ID_ORDER } = require('@errors/order')
 
 const getOrders = (query)=>{
     let {page = 1, pageSize = 10, sort="-createdAt,price"} = query
@@ -23,7 +24,7 @@ const createOrder = async (newOrder)=>{
 const getOrderById = (id) => {
     let checkId = validateObjectId(id)
     if(!checkId){
-        throw createError(400)  // {  statsus: ,  messsage:   }
+        throw createError(400, INVALID_ID_ORDER)
     }
     return OrderModel.findOne({
         _id: id
@@ -75,7 +76,7 @@ const updateOrderWithQuery = (query, newData)=>{
 const updateOrderById = (id, newData)=>{
     let checkId = validateObjectId(id)
     if(!checkId){
-        throw createError(400);
+        throw createError(400, INVALID_ID_ORDER);
     }
     return updateOrderWithQuery({_id: id}, newData)
 }
@@ -84,7 +85,7 @@ const updateOrderById = (id, newData)=>{
 const cancelOrderById = (id)=>{
     let checkId = validateObjectId(id)
     if(!checkId){
-        throw createError(400);
+        throw createError(400, INVALID_ID_ORDER);
     }
     return updateOrderWithQuery({_id: id, status: 'new'}, {status: 'cancel'})
 }

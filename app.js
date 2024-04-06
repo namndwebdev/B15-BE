@@ -3,9 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var routerTong = require('./routes')
+var routerTong = require('@routes')
 var app = express();
-const { createErrorMiddleware } = require('./middlewares/error')
+const { createErrorMiddleware } = require('@middlewares/error')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

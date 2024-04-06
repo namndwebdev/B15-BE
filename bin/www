@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 require('dotenv').config()
+require('module-alias/register')
 var app = require('../app');
 var debug = require('debug')('b15:server');
 var http = require('http');
