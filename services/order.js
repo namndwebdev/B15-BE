@@ -89,7 +89,14 @@ const cancelOrderById = (id)=>{
     }
     return updateOrderWithQuery({_id: id, status: 'new'}, {status: 'cancel'})
 }
-
+const deleteOrderById = (id)=>{
+    let checkId = validateObjectId(id)
+    if(!checkId){
+        throw createError(400, INVALID_ID_PRODUCT)
+    }
+    
+    return OrderModel.findOneAndDelete({_id: id})
+}
 
 module.exports = {
     getOrders,
@@ -97,5 +104,6 @@ module.exports = {
     getOrderById,
     updateOrderById,
     updateOrderWithQuery,
-    cancelOrderById
+    cancelOrderById,
+    deleteOrderById
 }

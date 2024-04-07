@@ -1,16 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const createError = require('http-errors')
-const {
-    updateProductById, 
-    deleteProductById
-} = require('@services/product')
 
 const {
     createOrder,
     getOrders,
     getOrderById,
-    updateOrderById
+    updateOrderById,
+    deleteOrderById
 } = require('@services/order')
 
 const { createErrorMiddleware } = require('@middlewares/error')
@@ -50,7 +47,7 @@ router.put('/:id', async (req, res, next)=>{
 })
 router.delete('/:id', async (req, res, next)=>{
     try {
-        let result = await deleteProductById(req.params.id, req.body)
+        let result = await deleteOrderById(req.params.id, req.body)
         return res.json(result)
     } catch (error) {
         next(createError(500, error))
