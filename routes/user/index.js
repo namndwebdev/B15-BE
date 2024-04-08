@@ -1,27 +1,50 @@
-const express = require('express')
-const router = express.Router()
-const userService = require('@services/user')
-const { createErrorMiddleware } = require('@middlewares/error')
+const express = require("express");
+const router = express.Router();
+const { createErrorMiddleware } = require("@middlewares/error");
+const { validateQueryPaging } = require("@helper/validateData");
+const createError = require("http-errors");
+const { getAllUser, getDetailUser, updateUser } = require("@services/user");
 
-router.get('/', async (req, res, next)=>{
-    try {
-        let data = await userService.getAllUser()
-        res.json(data)
-    } catch (error) {
-        res.json('khong the lay user')
+// Get all
+router.get("/", async (req, res, next) => {
+  try {
+    const { page, limit } = validateQueryPaging(req.query);
+    const result = await getAllUser(page, limit);
+    return res.json(result);
+  } catch (error) {
+    next(createError(500, error));
+  }
+});
+
+// Get details
+router.get("/:id", async (req, res, next) => {
+  try {
+    const result = await getDetailUser(req.params.id);
+    return res.json(result)
+  } catch (error) {
+    next(createError(500, error));
+  }
+});
+
+// Update user
+router.put("/:id", async (req, res, next) => {
+  try {
+    const user = await getDetailUser(req.params.id)
+    if(!user) {
+      next(createError(403, "Forbidden"));
+    } else {
+      if(!(req.params.id === user._id.toString() && req.params.id === req.user._id)) {
+        next(createError(403, "Forbidden"));
+      }
     }
-})
+    const result = await updateUser(req.params.id, req.user.role, req.body);
+    return res.json(result);
+  } catch (error) {
+    next(createError(500, error));
+  }
+});
 
-router.get('/them', async (req, res, next)=>{
-    try {
-        let ketqua = await userService.createUser()
-        res.json('them ok')
-    } catch (error) {
-        res.json('loi roi')
-    }
-})
+let handleError = createErrorMiddleware("User");
+router.use(handleError);
 
-let handleError = createErrorMiddleware('User')
-router.use(handleError)
-
-module.exports = router
+module.exports = router;

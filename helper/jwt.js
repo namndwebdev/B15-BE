@@ -6,6 +6,7 @@ let pubKey = fs.readFileSync(path.join(__dirname, '../keys/rsa-public-key.pem'))
 let privateKey = fs.readFileSync(path.join(__dirname, '../keys/rsa-private-key.pem'))
 
 const genJWT = (payload)=>{
+    console.log(process.env.JWT_EXPIRED)
     return new Promise((resolve, reject)=>{
         jwt.sign(payload, privateKey, { expiresIn: Number(process.env.JWT_EXPIRED), algorithm: 'RS256' }, function(err, token){
             if(err){

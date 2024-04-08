@@ -24,9 +24,21 @@ const isEmptyObject = (obj)=>{
     return Object.keys(obj).length == 0
 }
 
+const validateQueryPaging = ({page, limit}) => {
+    page = Number(page);
+    page = isNaN(page) || page < 1 ? 1 : page;
+    limit = Number(limit);
+    limit = isNaN(limit) || limit < 1 ? 1 : limit;
+    return {
+        page,
+        limit,
+    };
+}
+
 module.exports = {
     validateObjectId,
     removeEmptyKey,
     validateEmail,
-    isEmptyObject
+    isEmptyObject,
+    validateQueryPaging
 }

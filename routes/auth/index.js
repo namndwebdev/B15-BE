@@ -14,7 +14,7 @@ const {
 } = require('@errors/auth')
 router.post('/signup', async (req, res, next)=>{
     try {
-        let result = await createUser(req.body)
+        let result = await createUser("",req.body)
         return res.json(result)
     } catch (error) {
         next(createError(500, error.message))
