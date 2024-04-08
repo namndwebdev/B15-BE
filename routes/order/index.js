@@ -3,7 +3,7 @@ const router = express.Router()
 const createError = require('http-errors')
 const {
     deleteProductById
-} = require('../../services/product')
+} = require('@services/product')
 
 const {
     createOrder,
@@ -11,9 +11,10 @@ const {
     getOrderById,
     updateOrderById,
     cancelOrderById
-} = require('../../services/order')
+} = require('@services/order')
 
-const { createErrorMiddleware } = require('../../middlewares/error')
+const { createErrorMiddleware } = require('@middlewares/error')
+const { ONLY_CANCEL_WITH_NEW } = require('@errors/order')
 router.get('/', async (req, res, next)=>{
     try {
         let result = await getOrders(req.query)
@@ -45,7 +46,7 @@ router.put('/:id', async (req, res, next)=>{
         if(req.body.status){
             // muon cap nhat status
             if(req.body.status != 'cancel'){
-                throw createError(400, 'chi duoc huy don khi don co trang thai new')
+                throw createError(400, ONLY_CANCEL_WITH_NEW)
             }else{
                 // nguoi dung muon cancel
                 result = await cancelOrderById(req.params.id, req.body)

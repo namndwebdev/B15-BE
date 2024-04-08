@@ -1,4 +1,4 @@
-const TokenModel = require('../models/Token')
+const TokenModel = require('@models/Token')
 const saveToken = (token)=>{
     return TokenModel.create({
         value: token

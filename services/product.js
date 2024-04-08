@@ -1,7 +1,7 @@
-const ProductModel = require('../models/Product')
-const {validateObjectId, removeEmptyKey} = require('../helper/validateData')
+const ProductModel = require('@models/Product')
+const {validateObjectId, removeEmptyKey} = require('@helper/validateData')
 var createError = require('http-errors');
-
+const { INVALID_ID_PRODUCT } = require('@errors/product')
 const getProduct = (query)=>{
     let {page = 1, pageSize = 10, sort="-createdAt,price"} = query
     let skip = (page - 1) * pageSize
@@ -12,7 +12,7 @@ const getProduct = (query)=>{
 const getProductById = (id) => {
     let checkId = validateObjectId(id)
     if(!checkId){
-        throw createError(400)  // {  statsus: ,  messsage:   }
+        throw createError(400, INVALID_ID_PRODUCT)
     }
     return ProductModel.findOne({
         _id: id
@@ -35,7 +35,7 @@ const addProduct = (productObj)=>{
 const updateProductById = (id, newData)=>{
     let checkId = validateObjectId(id)
     if(!checkId){
-        throw createError(400)  // {  statsus: ,  messsage:   }
+        throw createError(400, INVALID_ID_PRODUCT)
     }
     let {name, salePrice, price, stock} = newData
     let validData = removeEmptyKey({
@@ -77,7 +77,7 @@ const updateStockOfListProduct = async (listProducts)=>{
 const deleteProductById = (id)=>{
     let checkId = validateObjectId(id)
     if(!checkId){
-        throw createError(400)  // {  statsus: ,  messsage:   }
+        throw createError(400, INVALID_ID_PRODUCT)
     }
     
     return ProductModel.findOneAndDelete({_id: id})

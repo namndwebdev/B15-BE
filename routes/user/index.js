@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const userService = require('../../services/user')
-const { createErrorMiddleware } = require('../../middlewares/error')
+const userService = require('@services/user')
+const { createErrorMiddleware } = require('@middlewares/error')
 
 router.get('/', async (req, res, next)=>{
     try {
