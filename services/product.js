@@ -1,7 +1,10 @@
 const ProductModel = require('@models/Product')
 const {validateObjectId, removeEmptyKey} = require('@helper/validateData')
 var createError = require('http-errors');
-const { INVALID_ID_PRODUCT } = require('@errors/product')
+const { INVALID_ID_PRODUCT } = require('@errors/product');
+const { INVALID_ID_SHOP } = require('@configs/errors/shop');
+const { findShopById } = require('./shop');
+
 const getProduct = (query)=>{
     let {page = 1, pageSize = 10, sort="-createdAt,price"} = query
     let skip = (page - 1) * pageSize
@@ -18,6 +21,23 @@ const getProductById = (id) => {
     return ProductModel.findOne({
         _id: id
     })
+}
+
+const createProduct = async({idShop, dataProduct}) => {
+    let checkId = validateObjectId(idShop)
+    if(!checkId){
+        throw createError(400, INVALID_ID_SHOP)
+    }
+    const isMyShop = await findShopById(idShop)
+    if(!isMyShop) {
+        throw createError(400, "Shop khong ton tai")
+    } else {
+        if(isMyShop.idUser !== idUser) {
+            throw createError(400, "Shop khong phai cua ban")
+        }
+    }
+    const {name, description, featureImg, gallery, categories, rate, brand, tags, listVariant} = dataProduct
+    
 }
 
 const addProduct = (productObj)=>{
@@ -91,5 +111,6 @@ module.exports = {
     addProduct,
     updateProductById,
     deleteProductById,
-    updateStockOfListProduct
+    updateStockOfListProduct,
+    createProduct
 }
