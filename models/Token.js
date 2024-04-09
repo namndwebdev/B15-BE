@@ -8,6 +8,6 @@ const tokenSchema = new mongoose.Schema({
 })
 
 const TokenModel = mongoose.model('Token', tokenSchema)
-tokenSchema.index({createdAt: 1},{expireAfterSeconds: Number(process.env.JWT_EXPIRED)});
+tokenSchema.index({createdAt: 1},{expireAfterSeconds: Number(process.env.JWT_EXPIRED_ACCESSTOKEN)});
 
 module.exports = TokenModel
