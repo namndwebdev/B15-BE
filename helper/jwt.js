@@ -9,7 +9,7 @@ let privateKey = fs.readFileSync(
   path.join(__dirname, "../keys/rsa-private-key.pem")
 );
 
-const accessToken = (payload) => {
+const generateAccessToken = (payload) => {
     if (payload.exp) {
         delete payload.exp;
       }
@@ -32,7 +32,7 @@ const accessToken = (payload) => {
   });
 };
 
-const refeshToken = (payload) => {
+const generateRefeshToken = (payload) => {
 
   return new Promise((resolve, reject) => {
     jwt.sign(
@@ -66,7 +66,7 @@ const verifyJWT = (token) => {
 };
 
 module.exports = {
-  accessToken,
-  refeshToken,
+  generateAccessToken,
+  generateRefeshToken,
   verifyJWT,
 };

@@ -4,7 +4,7 @@ const createError = require("http-errors");
 const { validateEmail } = require("@helper/validateData");
 const { createUser, findUserByEmail } = require("@services/user");
 const bcrypt = require("bcrypt");
-const { accessToken, refeshToken } = require("@helper/jwt");
+const { generateAccessToken, generateRefeshToken } = require("@helper/jwt");
 const { createErrorMiddleware } = require("@middlewares/error");
 const { saveToken } = require("@services/token");
 const { verifyJWT } = require("@helper/jwt");
@@ -35,8 +35,8 @@ router.post("/login", async (req, res, next) => {
       if (checkPassword) {
         user = user.toJSON();
         delete user.password;
-        let tokenAccess = await accessToken(user);
-        let tokenRefresh = await refeshToken(user);
+        let tokenAccess = await generateAccessToken(user);
+        let tokenRefresh = await generateRefeshToken(user);
         return res.json({
           user: user,
           accessToken: tokenAccess,
@@ -63,12 +63,17 @@ router.post("/refreshToken", async (req, res, next) => {
       return next(createError(401, UNAUTHEN));
     }
     let user = await verifyJWT(refreshToken);
+    delete user.iat
+    delete user.exp
+    console.log(user)
     req.user = user;
     if (user) {
-      var newAccessToken = await accessToken(user);
+      var newAccessToken = await generateAccessToken(user);
+      var newRefreshToken = await generateRefeshToken(user);
       return res.json({
-        user: user,
-        newAccessToken: newAccessToken,
+        user,
+        newAccessToken,
+        newRefreshToken,
       });
     }
   } catch (err) {
